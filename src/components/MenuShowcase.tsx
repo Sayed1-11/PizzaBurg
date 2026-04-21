@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { Box, X, Camera } from 'lucide-react';
+import { X, Camera } from 'lucide-react';
 
 const MENU_ITEMS = [
   { name: "BBQ Meat Machine", category: "Pizza", price: "Tk 335", features: ["Beef", "Chicken", "Veggies"], arSrc: "/pizza.glb" },
@@ -19,7 +19,7 @@ const MenuShowcase = () => {
   useEffect(() => {
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 0px)", (context) => {
+    mm.add("(min-width: 0px)", () => {
       const isMobile = window.innerWidth < 1024;
 
       gsap.fromTo(

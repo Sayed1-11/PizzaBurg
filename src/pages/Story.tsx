@@ -1,7 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
 import BrandStory from '../components/BrandStory';
 import { Rocket, Target, Users, Landmark } from 'lucide-react';
 

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { useCart } from '../context/CartContext';
-import { User, Phone, MapPin, Building2, CreditCard, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { User, MapPin, Building2, CreditCard, ChevronRight, CheckCircle2 } from 'lucide-react';
 
 const BRANCHES = [
   "Badda", "Uttara", "Mirpur 1", "Dhanmondi", "Wari", "Banasree", "Khilgaon", 
