@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import BrandStory from '../components/BrandStory';
+import heroImg from '../assets/hero.png';
 import CinematicHero from '../components/CinematicHero';
 import { Rocket, Target, Users, Landmark } from 'lucide-react';
 
@@ -107,9 +108,9 @@ const Story = () => {
       {/* Visionary Full-Width Section */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img 
-            src="../public/pizzaburg-restru2.jpg" 
-            alt="Futuristic glowing city silhouette representing expansion" 
+          <img
+            src="/pizzaburg-restru2.jpg"
+            alt="Futuristic glowing city silhouette representing expansion"
             className="w-full h-full object-cover opacity-20 filter grayscale contrast-150"
           />
         </div>
@@ -132,12 +133,29 @@ const Story = () => {
 
       {/* Realistic Texture Section */}
       <section className="py-20 border-t border-white/5">
-        <div className="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12 text-center opacity-40">
-           {/* These would be realistic close-ups of dough, sauce, cheese etc */}
-           <div className="aspect-square bg-white/5 rounded-2xl flex items-center justify-center font-display text-xs tracking-tighter uppercase p-4">Rigorously Dough</div>
-           <div className="aspect-square bg-white/5 rounded-2xl flex items-center justify-center font-display text-xs tracking-tighter uppercase p-4">Fresh Sourced Spice</div>
-           <div className="aspect-square bg-white/5 rounded-2xl flex items-center justify-center font-display text-xs tracking-tighter uppercase p-4">Secret Marinade</div>
-           <div className="aspect-square bg-white/5 rounded-2xl flex items-center justify-center font-display text-xs tracking-tighter uppercase p-4">Oak Smoked Meat</div>
+        <div className="container mx-auto px-6">
+          <h3 className="text-sm uppercase tracking-widest text-white/40 mb-6">Realistic Texture Gallery</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { src: '/Pizzaburg-Rajshahi_627d973eb950209e1a97972c1e02ae9a.jpg', caption: 'Rigorously Dough' },
+              { src: '/pizzaburg-restru.jpg', caption: 'Fresh Sourced Spice' },
+              { src: '/pizzaburg-restru2.jpg', caption: 'Secret Marinade' },
+              { src: heroImg, caption: 'Oak Smoked Meat' },
+            ].map((g) => (
+              <figure key={g.caption} className="relative aspect-square rounded-2xl overflow-hidden group bg-white/5">
+                <img
+                  src={g.src}
+                  alt={g.caption}
+                  loading="lazy"
+                  className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent opacity-80" />
+                <figcaption className="absolute bottom-4 left-4 text-xs font-bold uppercase tracking-wider text-white">
+                  {g.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
 
