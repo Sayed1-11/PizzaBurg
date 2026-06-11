@@ -79,7 +79,7 @@ const getCategoryStyles = (category: string) => {
   }
 };
 
-const CategoryCarousel = ({ category, items, activeArModel, setActiveArModel, getQuantity, addToCart, removeFromCart }: any) => {
+const CategoryCarousel = ({ category, items, setActiveArModel, getQuantity, addToCart, removeFromCart }: any) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const currentStyles = getCategoryStyles(category);
 

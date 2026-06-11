@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import BranchShowcase from '../components/BranchShowcase';
 import CinematicHero from '../components/CinematicHero';
 

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import BrandStory from '../components/BrandStory';
 import CinematicHero from '../components/CinematicHero';
@@ -14,13 +14,12 @@ const FUTURISTIC_MILESTONES = [
 
 const Story = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
+  useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.9]);
+  // scroll-linked motion values removed (unused)
 
   return (
     <div ref={containerRef} className="bg-background text-white selection:bg-primary selection:text-white">
