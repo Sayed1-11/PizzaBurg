@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import BrandStory from '../components/BrandStory';
@@ -21,6 +21,22 @@ const Story = () => {
   });
 
   // scroll-linked motion values removed (unused)
+
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const images = [
+    { src: '/Pizzaburg-Rajshahi_627d973eb950209e1a97972c1e02ae9a.jpg', caption: 'Evening Glow', sub: 'Rajshahi flagship at dusk' },
+    { src: '/pizzaburg-restru.jpg', caption: 'Woodfire Ambience', sub: 'Warmth behind every crust' },
+    { src: '/pizzaburg-restru2.jpg', caption: 'The Craft', sub: 'Handmade, heart-served' },
+    { src: '/pizzaburg-restru3.jpg', caption: 'Night Shift', sub: 'Quiet moments, full ovens' },
+  ];
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => setCurrent((c) => (c + 1) % images.length), 4000);
+    return () => clearInterval(id);
+  }, [images.length, paused]);
 
   return (
     <div ref={containerRef} className="bg-background text-white selection:bg-primary selection:text-white">
@@ -134,27 +150,55 @@ const Story = () => {
       {/* Realistic Texture Section */}
       <section className="py-20 border-t border-white/5">
         <div className="container mx-auto px-6">
-          <h3 className="text-sm uppercase tracking-widest text-white/40 mb-6">Realistic Texture Gallery</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { src: '/Pizzaburg-Rajshahi_627d973eb950209e1a97972c1e02ae9a.jpg', caption: 'Rigorously Dough' },
-              { src: '/pizzaburg-restru.jpg', caption: 'Fresh Sourced Spice' },
-              { src: '/pizzaburg-restru2.jpg', caption: 'Secret Marinade' },
-              { src: heroImg, caption: 'Oak Smoked Meat' },
-            ].map((g) => (
-              <figure key={g.caption} className="relative aspect-square rounded-2xl overflow-hidden group bg-white/5">
-                <img
-                  src={g.src}
-                  alt={g.caption}
-                  loading="lazy"
-                  className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+          <h3 className="text-sm uppercase tracking-widest text-white/40 mb-6">Moments From Our Kitchens</h3>
+
+          <div
+            className="relative w-full max-w-5xl mx-auto"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
+            <div className="relative rounded-3xl overflow-hidden bg-black/10 aspect-video">
+              <img
+                src={images[current].src}
+                alt={images[current].caption}
+                loading="lazy"
+                className="w-full h-full object-cover transition-transform duration-700"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent opacity-60" />
+
+              <div className="absolute left-6 bottom-6 text-left">
+                <p className="text-2xl font-display font-bold text-white">{images[current].caption}</p>
+                <p className="text-sm text-white/60 mt-1">{images[current].sub}</p>
+              </div>
+
+              <button
+                aria-label="Previous"
+                onClick={() => setCurrent((c) => (c - 1 + images.length) % images.length)}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 p-3 rounded-full text-white hover:bg-black/60"
+              >
+                ‹
+              </button>
+
+              <button
+                aria-label="Next"
+                onClick={() => setCurrent((c) => (c + 1) % images.length)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 p-3 rounded-full text-white hover:bg-black/60"
+              >
+                ›
+              </button>
+            </div>
+
+            <div className="flex gap-2 justify-center mt-4">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrent(i)}
+                  className={`w-3 h-3 rounded-full ${i === current ? 'bg-white' : 'bg-white/30'}`}
+                  aria-label={`Go to slide ${i + 1}`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent opacity-80" />
-                <figcaption className="absolute bottom-4 left-4 text-xs font-bold uppercase tracking-wider text-white">
-                  {g.caption}
-                </figcaption>
-              </figure>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
