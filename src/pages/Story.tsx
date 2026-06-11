@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import BrandStory from '../components/BrandStory';
-import heroImg from '../assets/hero.png';
+
 import CinematicHero from '../components/CinematicHero';
 import { Rocket, Target, Users, Landmark, ChevronLeft, ChevronRight } from 'lucide-react';
 
