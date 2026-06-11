@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import BrandStory from '../components/BrandStory';
 import heroImg from '../assets/hero.png';
 import CinematicHero from '../components/CinematicHero';
-import { Rocket, Target, Users, Landmark } from 'lucide-react';
+import { Rocket, Target, Users, Landmark, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const FUTURISTIC_MILESTONES = [
   { year: '2018', title: 'The Ignition', desc: 'Mir Mehadi launches the first PizzaBurg at North South University vicinity.', icon: Rocket },
@@ -153,39 +153,41 @@ const Story = () => {
           <h3 className="text-sm uppercase tracking-widest text-white/40 mb-6">Moments From Our Kitchens</h3>
 
           <div
-            className="relative w-full max-w-5xl mx-auto"
+            className="relative w-full max-w-7xl mx-auto"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
           >
-            <div className="relative rounded-3xl overflow-hidden bg-black/10 aspect-video">
+
+            <div className="relative rounded-4xl overflow-hidden bg-black/10 lg:h-[70vh] h-[50vh]">
               <img
                 src={images[current].src}
                 alt={images[current].caption}
                 loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-700"
+                className="w-full h-full object-cover transition-transform duration-1000 transform-gpu"
+                style={{ willChange: 'transform' }}
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent opacity-80" />
 
-              <div className="absolute left-6 bottom-6 text-left">
-                <p className="text-2xl font-display font-bold text-white">{images[current].caption}</p>
-                <p className="text-sm text-white/60 mt-1">{images[current].sub}</p>
+              <div className="absolute left-8 bottom-8 text-left max-w-[60%]">
+                <p className="text-3xl md:text-5xl lg:text-6xl font-display font-extrabold text-white leading-tight">{images[current].caption}</p>
+                <p className="text-sm md:text-base text-white/70 mt-3">{images[current].sub}</p>
               </div>
 
               <button
                 aria-label="Previous"
                 onClick={() => setCurrent((c) => (c - 1 + images.length) % images.length)}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 p-3 rounded-full text-white hover:bg-black/60"
+                className="absolute left-6 top-1/2 -translate-y-1/2 bg-black/40 p-3 rounded-full text-white hover:bg-black/60 shadow-lg"
               >
-                ‹
+                <ChevronLeft size={20} />
               </button>
 
               <button
                 aria-label="Next"
                 onClick={() => setCurrent((c) => (c + 1) % images.length)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 p-3 rounded-full text-white hover:bg-black/60"
+                className="absolute right-6 top-1/2 -translate-y-1/2 bg-black/40 p-3 rounded-full text-white hover:bg-black/60 shadow-lg"
               >
-                ›
+                <ChevronRight size={20} />
               </button>
             </div>
 
