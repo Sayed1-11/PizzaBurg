@@ -31,7 +31,8 @@ function AppContent() {
           <Route path="/career" element={<Career />} />
           <Route path="/story" element={<Story />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout" element={<Checkout initialMode="delivery" />} />
+          <Route path="/book" element={<Checkout initialMode="dine-in" />} />
           <Route path="/order" element={<Order />} />
         </Routes>
       </div>

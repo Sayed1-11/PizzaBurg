@@ -1,20 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { X, Camera } from 'lucide-react';
+import { X, Camera, Plus, Minus } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 const MENU_ITEMS = [
-  { name: "BBQ Meat Machine", category: "Pizza", price: "Tk 335", features: ["Beef", "Chicken", "Veggies"], arSrc: "/pizza.glb" },
-  { name: "Meaty Onion", category: "Pizza", price: "Tk 305", features: ["Onion", "Meat", "Sausage"], arSrc: "/pizza.glb" },
-  { name: "Sausage Carnival", category: "Pizza", price: "Tk 335", features: ["Mushroom", "Big Sausage"] },
-  { name: "Tongue Slayer", category: "Burger", price: "Tk 229", features: ["Naga Sauce", "Tender Chicken"] },
-  { name: "Cheese Volcano", category: "Burger", price: "Tk 339", features: ["Cheese Explosion", "Juicy Patty"] },
-  { name: "Killer KitKat", category: "Koken", price: "Tk 349", features: ["Vanilla", "KitKat Milkshake"] },
+  { id: '1', name: "BBQ Meat Machine", category: "Pizza", price: "Tk 335", features: ["Beef", "Chicken", "Veggies"], arSrc: "/pizza.glb", desc: "Beef & chicken with veggies", image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=800&auto=format&fit=crop" },
+  { id: '2', name: "Meaty Onion", category: "Pizza", price: "Tk 305", features: ["Onion", "Meat", "Sausage"], arSrc: "/pizza.glb", desc: "Onion, meat, sausage & spice", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop" },
+  { id: '3', name: "Sausage Carnival", category: "Pizza", price: "Tk 335", features: ["Mushroom", "Big Sausage"], desc: "Big sausage, mushroom, spice", image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?q=80&w=800&auto=format&fit=crop" },
+  { id: '7', name: "Tongue Slayer", category: "Burger", price: "Tk 229", features: ["Naga Sauce", "Tender Chicken"], desc: "Naga sauce & cheesy beef", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop" },
+  { id: '6', name: "Cheese Volcano", category: "Burger", price: "Tk 339", features: ["Cheese Explosion", "Juicy Patty"], desc: "Explosion of cheese", image: "https://images.unsplash.com/photo-1586816001966-79b736744398?q=80&w=800&auto=format&fit=crop" },
+  { id: '9', name: "Killer KitKat", category: "Koken", price: "Tk 349", features: ["Vanilla", "KitKat Milkshake"], desc: "Creamy vanilla & KitKat", image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=800&auto=format&fit=crop" },
 ];
 
 const MenuShowcase = () => {
   const horizontalRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const [activeArModel, setActiveArModel] = useState<string | null>(null);
+  const { cart, addToCart, removeFromCart } = useCart();
+
+  const getQuantity = (id: string) => {
+    return cart.find(item => item.id === id)?.quantity || 0;
+  };
 
   useEffect(() => {
     const mm = gsap.matchMedia();
@@ -77,17 +83,21 @@ const MenuShowcase = () => {
                   0{index + 1}
                 </span>
 
-                <div className="relative z-10">
-                  <div className="flex justify-between items-start mb-6">
-                    <span className="text-secondary font-bold uppercase tracking-widest text-[10px] md:text-xs">
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="w-full h-48 md:h-64 mb-6 rounded-2xl overflow-hidden shadow-2xl relative border border-white/10 group-hover:border-primary/30 transition-colors">
+                    <img src={item.image} alt={item.name} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                    <span className="absolute bottom-4 left-4 text-secondary font-bold uppercase tracking-widest text-[10px] md:text-xs z-10 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
                       {item.category}
                     </span>
-                    <span className="text-2xl md:text-4xl font-bold font-display text-primary">{item.price}</span>
                   </div>
 
-                  <h3 className="text-2xl md:text-5xl lg:text-7xl font-display mb-4 group-hover:text-primary transition-colors leading-tight">
-                    {item.name}
-                  </h3>
+                  <div className="flex justify-between items-start mb-4 gap-4">
+                     <h3 className="text-3xl md:text-5xl lg:text-6xl font-display group-hover:text-primary transition-colors leading-tight">
+                       {item.name}
+                     </h3>
+                     <span className="text-2xl md:text-4xl font-bold font-display text-primary whitespace-nowrap mt-1">{item.price}</span>
+                  </div>
 
                   <div className="flex flex-wrap gap-2 mb-8">
                     {item.features.map((f, i) => (
@@ -106,9 +116,30 @@ const MenuShowcase = () => {
                         <Camera size={14} /> See your food
                       </button>
                     )}
-                    <button className="flex-1 bg-white text-black px-6 py-4 rounded-full font-bold hover:bg-primary hover:text-white transition-all text-[10px] tracking-widest uppercase">
-                      Order Now
-                    </button>
+                    {getQuantity(item.id) > 0 ? (
+                      <div className="flex-1 flex items-center justify-between bg-primary p-1 rounded-full border border-white/10 h-[50px]">
+                        <button
+                          onClick={() => removeFromCart(item.id)}
+                          className="w-10 h-10 flex items-center justify-center hover:bg-black/20 rounded-full transition-colors"
+                        >
+                          <Minus size={14} />
+                        </button>
+                        <span className="font-bold text-sm">{getQuantity(item.id)}</span>
+                        <button
+                          onClick={() => addToCart(item as any)}
+                          className="w-10 h-10 flex items-center justify-center hover:bg-black/20 rounded-full transition-colors"
+                        >
+                          <Plus size={14} />
+                        </button>
+                      </div>
+                    ) : (
+                      <button 
+                        onClick={() => addToCart(item as any)}
+                        className="flex-1 bg-white text-black px-6 py-4 rounded-full font-bold hover:bg-primary hover:text-white transition-all text-[10px] tracking-widest uppercase h-[50px] cursor-pointer"
+                      >
+                        Order Now
+                      </button>
+                    )}
                   </div>
                 </div>
 

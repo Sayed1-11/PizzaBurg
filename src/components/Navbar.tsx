@@ -43,6 +43,11 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-4 md:gap-8">
+            {/* Book Table Button */}
+            <Link to="/book" className="hidden lg:flex items-center justify-center px-6 py-2.5 border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-full text-[10px] tracking-[0.2em] font-bold uppercase shadow-[0_0_15px_rgba(255,0,0,0.2)] hover:shadow-[0_0_25px_rgba(255,0,0,0.5)]">
+              Book Table
+            </Link>
+
             {/* Cyberpunk Cart */}
             <Link to="/cart" className="relative group p-2">
               <div className="absolute inset-0 bg-primary/0 rounded-full group-hover:bg-primary/20 blur-md transition-all duration-500" />
@@ -94,6 +99,21 @@ const Navbar = () => {
                   </Link>
                 </motion.div>
               ))}
+              
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="mt-6"
+              >
+                <Link
+                  to="/book"
+                  onClick={() => setIsOpen(false)}
+                  className="px-10 py-4 border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-full text-xs tracking-[0.3em] font-bold uppercase shadow-[0_0_15px_rgba(255,0,0,0.2)]"
+                >
+                  Book Table
+                </Link>
+              </motion.div>
               
               <motion.div
                 initial={{ opacity: 0 }}

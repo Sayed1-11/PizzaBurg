@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Briefcase, MapPin, Clock, DollarSign, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import CinematicHero from '../components/CinematicHero';
 
 const VACANCIES = [
   {
@@ -44,24 +45,15 @@ const Career = () => {
   return (
     <div className="min-h-screen bg-[#050505] text-white pt-32 pb-20">
       <div className="container mx-auto px-6">
-        {/* Header */}
-        <div className="max-w-4xl mb-16 md:mb-24">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-4 mb-8"
-          >
-            <Zap className="text-primary" size={20} />
-            <span className="text-primary font-bold tracking-[0.4em] uppercase text-[10px] md:text-sm">Human Capital Deployment</span>
-          </motion.div>
-          <h1 className="text-5xl md:text-9xl font-display leading-[0.8] mb-10">
-            JOIN THE<br />
-            <span className="text-red-500">SQUAD</span>
-          </h1>
-          <p className="text-white/40 text-lg md:text-xl leading-relaxed max-w-2xl">
-            We're not just making pizza; we're building a culture of addictive excellence. Join the fastest growing food-tech brand in Bangladesh.
-          </p>
-        </div>
+        {/* Shared cinematic hero for Career */}
+        <CinematicHero
+          eyebrow="Human Capital Deployment"
+          titleTop={<>JOIN THE</>}
+          highlight={<>SQUAD</>}
+          subtitle={"We're not just making pizza; we're building a culture of addictive excellence. Join the fastest growing food-tech brand in Bangladesh."}
+          variant="compact"
+          size="hero"
+        />
 
         {/* Vacancy Grid */}
         <div className="grid gap-6">

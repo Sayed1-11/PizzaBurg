@@ -34,12 +34,12 @@ const AmbassadorSection = () => {
           
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 mt-12">
             <div className="flex flex-col items-center">
-              <span className="text-5xl font-display text-primary">26K</span>
+              <span className="text-5xl font-display text-primary">1.7M</span>
               <span className="text-xs uppercase tracking-widest text-muted-foreground">Instagram Followers</span>
             </div>
             <div className="w-px h-12 bg-white/10 hidden md:block" />
             <div className="flex flex-col items-center">
-              <span className="text-5xl font-display text-primary">798K+</span>
+              <span className="text-5xl font-display text-primary">4.4M+</span>
               <span className="text-xs uppercase tracking-widest text-muted-foreground">FB Fanbase</span>
             </div>
             <div className="w-px h-12 bg-white/10 hidden md:block" />
