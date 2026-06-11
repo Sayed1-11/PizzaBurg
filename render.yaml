@@ -1,9 +1,7 @@
-services:
-  - type: web
-    name: pizzaburg
-    env: static
-    buildCommand: npm run build
-    staticPublishPath: dist
+staticSites:
+  - name: pizzaburg
+    buildCommand: "npm run build"
+    publishPath: dist
     routes:
       - type: rewrite
         source: "/*"
